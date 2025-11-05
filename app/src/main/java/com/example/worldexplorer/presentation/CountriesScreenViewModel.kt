@@ -23,9 +23,25 @@ class CountriesScreenViewModel @Inject constructor(
         fetchCountries()
     }
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
+    private val _error = MutableStateFlow<String?>(null)
+    val error = _error.asStateFlow()
+
     private fun fetchCountries() {
         viewModelScope.launch(Dispatchers.IO) {
-            _countries.value = getAllCountriesUseCase()
+            try {
+                _isLoading.value = true
+                val result = getAllCountriesUseCase()
+                _countries.value = result
+            } catch (e: Exception) {
+                _error.value = e.message
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
+
+
 }
