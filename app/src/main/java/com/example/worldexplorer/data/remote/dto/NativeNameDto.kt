@@ -2,7 +2,7 @@ package com.example.worldexplorer.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class NativeName(
+data class NativeNameDto(
     @SerializedName("ara")
-    val ara: Ara?
+    val ara: AraDto?
 )

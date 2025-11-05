@@ -2,7 +2,7 @@ package com.example.worldexplorer.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class Flags(
+data class FlagsDto(
     @SerializedName("alt")
     val alt: String?,
     @SerializedName("png")

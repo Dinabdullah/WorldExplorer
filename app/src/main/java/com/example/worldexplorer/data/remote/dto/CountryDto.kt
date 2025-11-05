@@ -2,13 +2,13 @@ package com.example.worldexplorer.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class Countries(
+data class CountryDto(
     @SerializedName("capital")
     val capital: List<String?>?,
     @SerializedName("flags")
-    val flags: Flags?,
+    val flags: FlagsDto?,
     @SerializedName("name")
-    val name: Name?,
+    val name: NameDto?,
     @SerializedName("population")
     val population: Int?,
     @SerializedName("region")
