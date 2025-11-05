@@ -4,8 +4,9 @@ import com.example.worldexplorer.data.mapper.toDomain
 import com.example.worldexplorer.data.remote.CountriesApi
 import com.example.worldexplorer.domain.entites.Country
 import com.example.worldexplorer.domain.repository.CountryRepository
+import javax.inject.Inject
 
-class CountryRepositoryImpl(private val api: CountriesApi) :CountryRepository {
+class CountryRepositoryImpl @Inject constructor(private val api: CountriesApi) :CountryRepository {
     override suspend fun getAllCountries(): List<Country> {
         val response =api.getAllCountries()
         return response.map { it.toDomain() }

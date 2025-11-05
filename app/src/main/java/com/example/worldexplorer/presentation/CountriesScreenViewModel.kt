@@ -4,11 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.worldexplorer.domain.entites.Country
 import com.example.worldexplorer.domain.usecase.GetAllCountriesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CountriesScreenViewModel(
+@HiltViewModel
+class CountriesScreenViewModel @Inject constructor(
     private val getAllCountriesUseCase: GetAllCountriesUseCase
 ) : ViewModel() {
 
@@ -20,7 +24,7 @@ class CountriesScreenViewModel(
     }
 
     private fun fetchCountries() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _countries.value = getAllCountriesUseCase()
         }
     }
