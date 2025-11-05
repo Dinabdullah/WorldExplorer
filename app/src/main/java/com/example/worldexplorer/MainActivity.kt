@@ -11,7 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.worldexplorer.data.remote.CountriesApi
+import com.example.worldexplorer.data.repository.CountryRepositoryImpl
+import com.example.worldexplorer.domain.usecase.GetAllCountriesUseCase
+import com.example.worldexplorer.presentation.CountriesScreen
+import com.example.worldexplorer.presentation.CountriesScreenViewModel
 import com.example.worldexplorer.ui.theme.WorldExplorerTheme
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,29 +26,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WorldExplorerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Scaffold(modifier = Modifier.fillMaxSize()) { _ ->
+                    val retrofit = Retrofit.Builder()
+                        .baseUrl("https://restcountries.com/v3.1/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+
+                    val api = retrofit.create(CountriesApi::class.java)
+                    val repository = CountryRepositoryImpl(api)
+                    val getAllCountriesUseCase = GetAllCountriesUseCase(repository)
+                    val viewModel = CountriesScreenViewModel(getAllCountriesUseCase)
+
+                    CountriesScreen(viewModel = viewModel)
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    WorldExplorerTheme {
-        Greeting("Android")
-    }
-}
