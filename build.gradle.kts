@@ -6,3 +6,8 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.ksp) apply false
 }
+buildscript {
+    dependencies {
+        classpath("app.cash.sqldelight:gradle-plugin:2.0.1")
+    }
+}

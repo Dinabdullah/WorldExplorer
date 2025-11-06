@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    id("app.cash.sqldelight")
 }
 
 android {
@@ -40,6 +41,13 @@ android {
         compose = true
     }
 }
+sqldelight {
+    databases {
+        create("WorldExplorerDatabase") {
+            packageName.set("com.example.worldexplorer.cache")
+        }
+    }
+}
 
 dependencies {
 
@@ -71,5 +79,7 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
 
     implementation("com.valentinilk.shimmer:compose-shimmer:1.2.0")
+
+    implementation("app.cash.sqldelight:android-driver:2.0.1")
 
 }
