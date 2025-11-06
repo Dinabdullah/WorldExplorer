@@ -69,4 +69,7 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
+
+    implementation("com.valentinilk.shimmer:compose-shimmer:1.2.0")
+
 }

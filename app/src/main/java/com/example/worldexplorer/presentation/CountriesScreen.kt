@@ -51,10 +51,13 @@ fun CountriesScreen(viewModel: CountriesScreenViewModel = hiltViewModel()) {
 
                 when {
                     isLoading -> {
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                        LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            items(6) {
+                                ShimmerCountryCard()
+                            }
                         }
                     }
+
 
 //                    error != null -> {
 //                        Box(modifier = Modifier.fillMaxSize()) {
